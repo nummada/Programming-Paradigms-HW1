@@ -1,0 +1,53 @@
+Nume: Nuta Mihaela-Madalina
+Grupa: 324CB
+Readme: Tema 1 PP
+
+Cerinta 1: parsarea input-ului
+	Pentru a realiza parsarea string-urilor din input, am folosit functia splitOn din
+Data.List.Split si am separat liniile dupa LnSeparator, iar coloanele dupa ColSeparator.
+
+Cerinta2: Show
+	Pentru a realiza cerinta a2a, am folosit urmatoarea idee folosita intr-un laborator:
+	Pentru a avea acces la "coloanele" din tabel, m-am gandit sa folosesc transpusa unei liste de
+liste. Transpunand tabelul reprezentat prin [[String]], coloanele din tabel devin linii.
+Urmatoarele operatii au fost realizate asupra transpusei. Pentru a calcula cate spatii trebuie sa
+adaug la fiecare cuvand pentru Show, am construit o lista in care am inglobat lungimea celui mai
+lung cuvant din fiecare linie din matricea transpusa (adica coloana din tabel), iar la fiecare
+cuvant am adaugat un numar egal cu diferenta dintre lungimea maxima de pe acea linie din transpusa,
+din care am scazut lungimea cuvantului. Astfel, dupa ce se transpune din nou matricea rezultata
+dupa adaugarea spatiilor, fiecare coloana va avea aceeasi latime pentru fiecare cuvant.
+	Pentru a realiza show, am generat o linie de cratime, header-ul, o linie de cratime, apoi
+fiecare linie din entry-list formatata exact ca si header-ul, apoi o linie de cratime.
+
+Cerinta 3: eval
+	Atom: tabelul primit
+	Select: am folosit transpusa si am ales liniile din transpusa care incep cu o valoare din lista
+			de field-uri
+	SelectLimit: am folosit functia de la Select (selectColumnsByFields), insa, putin modificata,
+				unde cu ajutorul functiei "take" am selectat doar primele "nr" elemente din linia
+				matricii transpuse
+	Filter: am completat functia getFilter si m-am folosit de functia applyFilter pentru a rezolva
+			cerinta. Pentru getFilter, la fiecare tip de FilterCondition m-am folosit de o functie
+			lambda care primeste un entry si verifica daca entry-ul respectiv verifica conditia
+			specifica acelui filtru. De exemplu, pentru Eq, am verificat daca elementul din entry de
+			pe pozitia reprezentata de index-ul acelui field in tableschema este egal cu "str"
+			primit ca parametru, adica elementul cu care se doreste a fi egal. Aceasta functie,
+			pentru fiecare tip de date este apelata in functia applyFilter, unde aplic filtrul cu
+			ajutorul foldr pe entrylist (tail table).
+
+Cerinta 4: cele 3 functii care folosesc eval
+
+	same_zone: m-am folosit de functiile returnPosById si returnZoneByPos pentru a afla zona
+entry-ului in functie de id. Dupa care am filtrat cu ajutorul Eq pentru a avea entry-uri doar cu
+acea zona si am sterg entry-ul referinta (cel in functie de care cautam) cu ajutorul functiei
+deleteEntry.
+
+	male_within_age: m-am folosit de functia removeIfLowerAge pentru a sterge entry-urile care au
+varsta mai mica decat n1, iar pentru valoarea maxima a varstei, m-am folosit de filtrul Filter, cu 
+filter condition = Lt. Am ales sex-ul entry-urilor  cu ajutorul filtrului Eq.
+
+	mixed: am aplicat filtrul In cu parametrul: lista de ocupatii unui query pe care se aplicase
+acelasi filtru, dar cu parametrul lista de zone. Acestui query din urma i-a fost aplicat filtrul
+Lt pentru "age".
+
+Feedback tema: mi-a placut tema, putin tricky, dar faina.
